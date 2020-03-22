@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import java.time.Instant;
-import java.util.Timer;
+import launcher.OSValidator;
 
 public class LauncherMain extends Application {
 	
@@ -22,15 +22,22 @@ public class LauncherMain extends Application {
         return System.nanoTime() / 1000000;
     }
 	
+	
+	
+	
+	
 	public void start(final Stage primaryStage){
-		Instant instant = Instant.now();
-		System.out.println(instant + " - Starting up...");
 		
+		Instant instant = Instant.now();
+		System.out.println(instant + " - Checking instalation, please wait...");
+		OSValidator.installDir();
+		instant = Instant.now();
+		System.out.println(instant + " - Starting up...");
 		//Starts stopwatch for how long the launcher takes to boot up
 		int startTime = (int) System.nanoTime();
 		
 		//Version is changed here, might add a check to an update server later
-		String version = "0.0.2a";
+		String version = "0.0.3a";
 		instant = Instant.now();
 		System.out.println(instant + " - Version: " + version);
 		
