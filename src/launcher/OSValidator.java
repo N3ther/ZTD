@@ -18,7 +18,7 @@ public class OSValidator {
 				instant = Instant.now();
 				System.out.println(instant + " - [OSValidator] Drive is " + sysDrive);
 			}
-			installdir = sysDrive + "\\Program Files (x86)\\Zone To Defend";
+			installdir = System.getProperty("user.home") + "\\Desktop" + "\\Zone To Defend";
 		} else if (isMac()) {
 			System.out.println(instant + " - [OSValidator] - OS is macOS");
 			String sysDrive = System.getenv("SystemDrive");
