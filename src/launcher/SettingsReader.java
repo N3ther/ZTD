@@ -3,7 +3,6 @@ package launcher;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,16 +10,16 @@ import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class SettingsSaver {
-	public static void Saver(String varName, File fileName, Number value) throws IOException {
+public class SettingsReader {
+	
+public static Double Reader(String varName, File fileName, Double result) throws IOException {
 		
 		//Checks if saver values are set or not
 		Instant instant = Instant.now();
 		if (varName == null) {
 			instant = Instant.now();
-			System.out.println(instant + " - [SettingsSaver] [Error] Variable varName not set, defaulting to volume");
+			System.out.println(instant + " - [SettingsReader] [Error] Variable varName not set, defaulting to volume");
 			varName = "volume";
 		}
 		
@@ -44,27 +43,25 @@ public class SettingsSaver {
 		for (int i = 0; i < fileContent.size(); i++) {
 			String line = fileContent.get(i);
 			String oldValue = line.replaceAll("[^\\d.]", "");
+			result = Double.parseDouble(oldValue);
 			instant = instant.now();
 			System.out.println(instant + " - [Debug] SettingsSaver is looking for " + varName + oldValue + ".");
 		    if (fileContent.get(i).equals(varName + oldValue)) {
 		    	instant = instant.now();
-		    	System.out.println(instant + " - [Debug] varName is " + varName + ", oldValue is " + oldValue + ", value is " + value + ".");
-		        fileContent.set(i, varName + value);
+		    	System.out.println(instant + " - [Debug] varName is " + varName + ", oldValue is " + oldValue + ", value is " + ".");
 		        break;
 		    } else {
 		    	instant = instant.now();
 		    	System.out.println(instant + " - [Warn] Variable " + varName + " was not found in " + fileName + ".");
-		    	System.out.println(instant + " - [Debug] varName is " + varName + ", oldValue is " + oldValue + ", value is " + value + ".");
+		    	System.out.println(instant + " - [Debug] varName is " + varName + ", oldValue is " + oldValue + ".");
 		    }
 		}
 		
 		
 
-		Files.write(dir, fileContent, StandardCharsets.UTF_8);
+		return result;
 		
 		
 	}
-	
-	
 
 }

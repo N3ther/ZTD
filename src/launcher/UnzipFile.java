@@ -8,8 +8,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class UnzipFile {
-    public static void main(String[] args, String fileZip, File destDir) throws IOException {
-        byte[] buffer = new byte[1024];
+	public static String main(String[] args) throws IOException {
+		String fileZip = "ztd.zip";
+		File destDir = new File(OSValidator.installDir());
+		byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(fileZip));
         ZipEntry zipEntry = zis.getNextEntry();
         while (zipEntry != null) {
@@ -24,7 +26,9 @@ public class UnzipFile {
         }
         zis.closeEntry();
         zis.close();
-    }
+		return fileZip;
+	}
+	
      
     public static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destinationDir, zipEntry.getName());

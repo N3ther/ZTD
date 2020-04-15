@@ -22,7 +22,7 @@ public class GithubDownloader {
 	      String link =
 	         "http://github.com/downloads/N3ther/ZTD/" +
 	         "ztd.zip";
-	      String fileName = "test.zip";
+	      String fileName = "ztd.zip";
 	      URL url  = new URL( link );
 	      HttpURLConnection http = (HttpURLConnection)url.openConnection();
 	      Map< String, List< String >> header = http.getHeaderFields();

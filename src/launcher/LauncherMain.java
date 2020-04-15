@@ -18,13 +18,22 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -47,13 +56,42 @@ public class LauncherMain extends Application {
 	
 	
 	
-	public void start(final Stage primaryStage){
-		String checksum = "3282020l005ag000";
+	public void start(final Stage primaryStage) throws Exception{
+		String checksum = "4152020l006a";
+		
+		List<String> lines = Arrays.asList(checksum);
+		Path file = Paths.get("checksum.txt");
+		Files.write(file, lines, StandardCharsets.UTF_8);
+		//Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+		
 		Instant instant = Instant.now();
 		System.out.println(instant + " - Checking instalation, please wait...");
 		OSValidator.installDir();
 		
+		/*
+		URL website = new URL("http://www.website.com/information.asp");
+		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+		FileOutputStream fos = new FileOutputStream("checksumNew.txt");
+		try {
+			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+		} catch (IOException e1) {
+			instant = Instant.now();
+			System.out.println(instant + " - [Error] Cannot download checksum from GitHub!");
+			e1.printStackTrace();
+		}
 		
+		
+		boolean needUpdate = ChecksumReader.isUpdated();
+		if (needUpdate == true) {
+			try {
+				GithubDownloader.main(null);
+			} catch (Throwable e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			UnzipFile.main(null);
+		}
+		*/
 		
 		instant = Instant.now();
 		System.out.println(instant + " - Starting up...");
@@ -61,7 +99,7 @@ public class LauncherMain extends Application {
 		int startTime = (int) System.nanoTime();
 		
 		//Version is changed here, might add a check to an update server later
-		String version = "0.0.5a";
+		String version = "0.0.6a";
 		instant = Instant.now();
 		System.out.println(instant + " - Version: " + version);
 		
@@ -172,18 +210,35 @@ public class LauncherMain extends Application {
         mainScreenButton.setStyle("-fx-font-size: 1.3em");
         
         Slider volume = new Slider();
+        File volumeSaverFile = new File(OSValidator.installDir() + "\\prefs.ztdp");
         volume.setMin(0);
         volume.setMax(100);
-        volume.setValue(100);
+        Double initVolValue = SettingsReader.Reader("volume", volumeSaverFile, null);
+        volume.setValue(initVolValue);
         volume.setShowTickLabels(true);
         volume.setMajorTickUnit(20);
         volume.setMinorTickCount(10);
         
         Text volumeText = new Text();
-        volumeText.setText("Volume: 100.0");
+        volumeText.setText("Volume: " + initVolValue);
         
         CheckBox debugMode2 = new CheckBox();
         debugMode2.setText("Debug Mode");
+        debugMode2.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(final ActionEvent event) {
+            	Boolean debug = false;
+                if (debugMode.isSelected() == true) {
+                    debug = true;
+                    System.out.println("Debug mode set to " + debug);
+                }
+               
+                if (debugMode.isSelected() == false) {
+                    debug = false;
+                    System.out.println("Debug mode set to " + debug);
+                }
+            }
+        });
+        
         
         
         volume.valueProperty().addListener(new ChangeListener<Number>() {
@@ -193,7 +248,8 @@ public class LauncherMain extends Application {
         			@SuppressWarnings("static-access")
 					Instant instant2 = instant.now();
         			try {
-						SettingsSaver.Saver("volume", OSValidator.installDir(), "prefs.ztdp", old_val, new_val);
+        				File volumeSaverFile2 = new File(OSValidator.installDir() + "\\prefs.ztdp");
+						SettingsSaver.Saver("volume", volumeSaverFile2, new_val);
 					} catch (IOException e) {
 						System.out.println("IOException");
 						e.printStackTrace();

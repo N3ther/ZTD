@@ -23,7 +23,7 @@ public class Main implements Runnable {
 	private boolean running = false;
 	private long window;
 	private Instant instant = Instant.now();
-	
+	boolean colorActiveted = false;
 	
 	
 	public void start() {
@@ -53,9 +53,11 @@ public class Main implements Runnable {
 		
 		GL.createCapabilities();
 		
+		
 		GL11.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		System.out.println(instant + " - [OpenGL] Version: " + GL11.glGetString(GL11.GL_VERSION));
+		
 	}
 	
 	public void run() {
@@ -65,20 +67,6 @@ public class Main implements Runnable {
 			update();
 			render();
 			String fps = FPSCounter.StopAndPost();
-			int s = 256; //Take whatever size suits you.
-			BufferedImage b = new BufferedImage(s, s, BufferedImage.TYPE_4BYTE_ABGR);
-			Graphics2D g = b.createGraphics();
-			g.drawString(fps, 0, 0);
-
-			int co = b.getColorModel().getNumComponents();
-
-			byte[] data = new byte[co * s * s];
-			b.getRaster().getDataElements(0, 0, s, s, data);
-
-			ByteBuffer pixels = BufferUtils.createByteBuffer(data.length);
-			pixels.put(data);
-			pixels.rewind();
-			
 			
 			
 			
@@ -91,7 +79,14 @@ public class Main implements Runnable {
 	private void update() {
 		GLFW.glfwPollEvents();
 		if (Input.keys[GLFW.GLFW_KEY_SPACE]) {
-			System.out.println("flap");
+			if (colorActiveted == false) {
+				GL11.glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+				colorActiveted = true;
+			}
+			if (colorActiveted == true) {
+				GL11.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+				colorActiveted = false;
+			}
 		}
 	}
 	
