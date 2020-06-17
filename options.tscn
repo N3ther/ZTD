@@ -1,0 +1,30 @@
+[gd_scene format=2]
+
+[node name="Label" type="Label"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 167.32
+margin_top = 251.888
+margin_right = 354.32
+margin_bottom = 286.888
+rect_scale = Vector2( 3.9799, 2.73485 )
+text = "Currently a Work In Progress!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LinkButton" type="LinkButton" parent="."]
+margin_left = 396.656
+margin_top = 310.738
+margin_right = 448.656
+margin_bottom = 324.738
+rect_scale = Vector2( 4.8, 3.4 )
+text = "Go Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
