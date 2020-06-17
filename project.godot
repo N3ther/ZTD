@@ -16,17 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="ZAD"
-run/main_scene="res://mainmenu.tscn"
+run/main_scene="res://mainmenu/MainMenu.tscn"
 boot_splash/image="res://zad.png"
 config/icon="res://icon.png"
-
-[autoload]
-
-Global="*res://Global.gd"
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.188235, 0.0745098, 0.0745098, 1 )
 environment/default_environment="res://default_env.tres"

@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://mainmenu/logobar.png" type="Texture" id=1]
+[ext_resource path="res://mainmenu/MontserratAlternates-ExtraBold.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://mainmenu/buttons/OptionsButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mainmenu/buttons/PlayButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://mainmenu/buttons/ExitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://mainmenu/mainMenu.gd" type="Script" id=7]
+[ext_resource path="res://mainmenu/buttons/ExitButton.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 2 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 904.0
+margin_bottom = 520.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+margin_right = 784.0
+margin_bottom = 100.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 104.0
+margin_right = 784.0
+margin_bottom = 324.0
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 784.0
+margin_bottom = 220.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
+margin_bottom = 60.0
+rect_min_size = Vector2( 360, 60 )
+
+[node name="OptionsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_top = 80.0
+margin_bottom = 140.0
+
+[node name="ExitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
+margin_top = 160.0
+margin_bottom = 220.0
+script = ExtResource( 8 )
+
+[node name="VersionLabel" type="Label" parent="Menu"]
+margin_top = 328.0
+margin_right = 784.0
+margin_bottom = 440.0
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Version 0.1.1 Alpha
+Using the GNU General Public License v3.0"
+valign = 2
+[connection signal="pressed" from="Menu/CenterRow/Buttons/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
