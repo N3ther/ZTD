@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://mainmenu/MontserratAlternates-ExtraBold.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://mainmenu/GNUUnifont9FullHintInstrUCSUR.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game/returnToTitle.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
@@ -8,6 +8,10 @@ size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 1 )
 
@@ -27,21 +31,29 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 284.0
-margin_top = 249.0
-margin_right = 739.0
-margin_bottom = 350.0
+margin_left = 320.0
+margin_top = 242.0
+margin_right = 704.0
+margin_bottom = 358.0
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 455.0
-margin_bottom = 60.0
+margin_right = 384.0
+margin_bottom = 48.0
 custom_fonts/font = SubResource( 1 )
 text = "WIP (Play Scene)"
 
 [node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 64.0
-margin_right = 455.0
-margin_bottom = 101.0
+margin_top = 52.0
+margin_right = 384.0
+margin_bottom = 82.0
 custom_fonts/font = SubResource( 2 )
 text = "Back"
+
+[node name="MoveTest" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 384.0
+margin_bottom = 116.0
+custom_fonts/font = SubResource( 3 )
+text = "Go to Movement Test"
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MoveTest" to="." method="_on_MoveTest_pressed"]
