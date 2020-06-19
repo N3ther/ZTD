@@ -1,4 +1,4 @@
-# ZAD
+# ZAD/ZTD
 (ZTD is the old name of the game, it's now called ZAD)
 What is ZTD/ZAD?
 
