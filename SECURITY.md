@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-As of June 17th, 2020, all versions above 0.1.0a are supported. 0.0.5a and below are not supported as the programming language used has changed, and I'd be suprised if someone manages to find a security vulnerability in a launcher with no program to launch.
+As of June 17th, 2020, all versions above 0.1.0a are supported. 0.0.5a and below are not supported as the programming language used has changed, and I'd be suprised if someone manages to find a security vulnerability in a launcher.
 
 | Version   | Supported          |
 | --------- | ------------------ |
